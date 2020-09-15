@@ -135,3 +135,12 @@
 **status** = Ikke implementeret (8:38 15/09-2020)
 
 ****
+
+## Arduino Sender ingen data men svarer på pings:
+1. Opsat arduino sender ikke læst data tilbage, men svarer på ICMP(ping) forespørgsler.
+1. Kommunikator sender advarsler til API.
+1. API gemmer data, og sender advarsler til Aktør.
+
+**status** = Ikke implementeret (10:01 15/09-2020)
+
+****
