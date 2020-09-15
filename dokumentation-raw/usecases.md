@@ -116,3 +116,22 @@
 **status** = Ikke implementeret (8:14 15/09-2020)
 
 ****
+
+## Arduino læser sensor information:
+1. Arduino læser data fra DTH11 sensor.
+1. Arduino printer information til et output.
+1. Arduino venter et stykke tid før læsning fra DHT11 sensor
+1. gentag 1.
+
+**status** = Ikke implementeret (8:33 15/09-2020)
+
+****
+
+## Arduino kommunikator kan genere UUID,IP og MAC for Arduino:
+1. Aktør registere ny Arduino, information generes til Arduino.
+1. Kommunikator gemmer genereret data i Database.
+1. Kommunikator klar til at sende/modtage data fra Arduino.
+
+**status** = Ikke implementeret (8:38 15/09-2020)
+
+****
