@@ -113,11 +113,11 @@ grænseværdier kan ændres baseret på hvor disse sensorer er, dette kan være 
 
 # Kilder:
 [0] DHT11 Dokumentation: https://www.mouser.com/datasheet/2/758/DHT11-Technical-Data-Sheet-Translated-Version-1143054.pdf
-[1] DHT11 præcision: https://howtomechatronics.com/tutorials/arduino/dht11-dht22-sensors-temperature-and-humidity-tutorial-using-arduino/#:~:text=Also%20the%20DHT22%20sensor%20has,is%20better%20than%20the%20DHT22.
+[1] DHT11 målings præcision: https://howtomechatronics.com/tutorials/arduino/dht11-dht22-sensors-temperature-and-humidity-tutorial-using-arduino/#:~:text=Also%20the%20DHT22%20sensor%20has,is%20better%20than%20the%20DHT22.
 [2] MAC Addresse specifikation: https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xhtml
 [3]  https://www.arduino.cc/en/Tutorial/WebServer
 
 
 ****
 
-**Sidste ændring 09:11 16/09-2020**
+**Sidste ændring 09:12 16/09-2020**
