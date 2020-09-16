@@ -31,6 +31,9 @@ Kommunikations medium vil være JSON til og fra Arduinoer.
 ## Arduino Kommunikator:
 Arduino Kommunikator vil generer UUID, IP og MAC for en Arduino, dette data vil blive gemt i en database, så Arduino kommunikator vil vide at det er en registeret sensor, og vil aktivt få data fra sensore, dette program skal bruge et DLL bibliotek til at gemme og modtage data fra database, skal have begrænset kommunikation med Web API for at sende alarmer til brugere.
 
+### Oprettelse af sensor:
+for at oprette en sensor kan man sætte et brugervenligt navn op med det samme i programmets grafiske interface, programmet vil genere et UUID, IP og MAC addresse for arduino'en til at skulle bruge.
+
 ### Standard Opførsel:
 Kommunikator kan have en aktiv opførsel hvilket gør at den aktivt kontakter Arduinoen og får data, hvilken den så skal gemme i en database. 
 
@@ -116,4 +119,4 @@ grænseværdier kan ændres baseret på hvor disse sensorer er, dette kan være 
 
 ****
 
-**Sidste ændring 08:49 16/09-2020**
+**Sidste ændring 09:04 16/09-2020**
