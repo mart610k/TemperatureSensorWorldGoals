@@ -9,7 +9,7 @@ de har en en del pins som kan bruges til at interakter med den virkelige verden.
 Arduinoer har en del mulighedere for at have sensorer tilslusttet, i dette projekt er der bygget ud fra at sensoren der bliver brugt er en DHT11 [0].
 
 #### DHT11:
-Dette er en temperatur og luft fugtigheds sensor som er akkurat ned til +/- 2 grader i Celsius og +/- 5% luft fugtighed
+Dette er en temperatur og luft fugtigheds sensor som er akkurat ned til +/- 2 grader i Celsius og +/- 5% luft fugtighed [1]
 
 ### Sheilds:
 
@@ -17,11 +17,11 @@ Arduinoer kan udvides med forskellige sheilds, i dette project vil der blive bru
 
 #### Ethernet Shield:
 
-Ethernet shield kommer med ingen konfiguration dette betyder at arduinoen skal definere en MAC addresse til Ethernet sheildet fra hvilken MAC skal bruges. ved at kigge på dokumentationen [1] er der MAC addresser som er enten reseveret eller ubrugte. disse er de MAC addresser at der skal generes udfra.
+Ethernet shield kommer med ingen konfiguration dette betyder at arduinoen skal definere en MAC addresse til Ethernet sheildet fra hvilken MAC skal bruges. ved at kigge på dokumentationen [2] er der MAC addresser som er enten reseveret eller ubrugte. disse er de MAC addresser at der skal generes udfra.
 
 ##### Arduino webserver over Ethernet:
 
-Ethernet biblioteket kommer også med et webserver til at kunne modtage og sende information mellem Arduinoen og andre computere. serveren kan blive fundet her [2].
+Ethernet biblioteket kommer også med et webserver til at kunne modtage og sende information mellem Arduinoen og andre computere. serveren kan blive fundet her [3].
 
 ##### Kommunikation medium:
 Kommunikations medium vil være JSON til og fra Arduinoer.
@@ -113,10 +113,11 @@ grænseværdier kan ændres baseret på hvor disse sensorer er, dette kan være 
 
 # Kilder:
 [0] DHT11 Dokumentation: https://www.mouser.com/datasheet/2/758/DHT11-Technical-Data-Sheet-Translated-Version-1143054.pdf
-[1] MAC Addresse specifikation: https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xhtml
-[2]  https://www.arduino.cc/en/Tutorial/WebServer
+[1] DHT11 præcision: https://howtomechatronics.com/tutorials/arduino/dht11-dht22-sensors-temperature-and-humidity-tutorial-using-arduino/#:~:text=Also%20the%20DHT22%20sensor%20has,is%20better%20than%20the%20DHT22.
+[2] MAC Addresse specifikation: https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xhtml
+[3]  https://www.arduino.cc/en/Tutorial/WebServer
 
 
 ****
 
-**Sidste ændring 09:04 16/09-2020**
+**Sidste ændring 09:11 16/09-2020**
