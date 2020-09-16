@@ -92,7 +92,18 @@ klasser til at pakke information ind i. hvilket vil blive brugt til at uploade t
 ****
 
 ## Angular hjemmeside:
-Angular hjemmesiden skal give information til brugeren som modtages fra web API'en data skal også sendes til apien baseret på hvad der skal gøres. 
+Angular hjemmesiden skal give information til brugeren som modtages fra web API'en data skal også sendes til apien baseret på hvad der skal gøres.
+
+### Modtag data fra API om skanner:
+angular skal hente information omkring enhed(er), hvilke temperaturer og luft fugtigheds målninger der er målt over tid.
+
+### Send data til API til brugervendte systemer:
+Angular skal kunne sende brugervenlige navne til serveren denne kode vil blive vist til brugere. dette kan være at have en sensor som er kendt som et UUID(Windows version hedder GUID), hvor du kan sætte et navn op på.
+
+### Sætte grænseværdier på enheder:
+grænseværdier kan ændres baseret på hvor disse sensorer er, dette kan være i et server rum hvor man ikke ønsker temperatueren går over eller under en temperatur.
+
+
 
 
 ****
@@ -101,3 +112,8 @@ Angular hjemmesiden skal give information til brugeren som modtages fra web API'
 [0] DHT11 Dokumentation: https://www.mouser.com/datasheet/2/758/DHT11-Technical-Data-Sheet-Translated-Version-1143054.pdf
 [1] MAC Addresse specifikation: https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xhtml
 [2]  https://www.arduino.cc/en/Tutorial/WebServer
+
+
+****
+
+**Sidste ændring 08:49 16/09-2020**
