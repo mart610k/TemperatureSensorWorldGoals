@@ -10,7 +10,7 @@ namespace BackEndServices.Room
 
         string IPAddresss { get; }
 
-        string Description { get; } 
+        string Description { get; }
 
     }
 }

@@ -55,6 +55,34 @@ namespace BackEndServicesTests
                 Assert.AreEqual(expected.Count, actual.Count);
             }
         }
+
+        [Test]
+        public void CheckDetailedRoomIsReturned()
+        {
+
+            string roomUUID = "8de8e4bc-1754-4e10-a3e5-7e535a5559a1";
+            using (AutoMock mock = AutoMock.GetStrict())
+            {
+                string sqlStatement = "Select unhex(ID),Name,unhex(MacAdress),IpAddress,Description from Sensor where ID = hex(\""+ roomUUID + "\");";
+
+                mock.Mock<IDatabaseAccess>()
+                    .Setup(x => x.LoadData<IRoom>(sqlStatement))
+                    .Returns(new List<IRoom> { GetSampleRoom() });
+
+                CommonDataMethods cls = mock.Create<CommonDataMethods>();
+
+
+                IRoom expected = GetSampleRoom();
+                IRoom actual = cls.GetRoomDetailed(roomUUID);
+
+                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISimpleRoom>(sqlStatement), Times.Exactly(1));
+
+                Assert.True(actual != null);
+                Assert.AreEqual(expected.GUID.ToString(),actual.GUID.ToString());
+            }
+        }
+
+
         private List<ISimpleRoom> GetSampleRooms()
         {
             List<ISimpleRoom> list = new List<ISimpleRoom>
@@ -64,6 +92,12 @@ namespace BackEndServicesTests
             };
 
             return list;
+        }
+        private IRoom GetSampleRoom()
+        {
+            
+
+            return new Room("RoomA3", "8de8e4bc-1754-4e10-a3e5-7e535a5559a1","test","test","test");
         }
     }
 }
