@@ -28,21 +28,12 @@ namespace BackEndServices
 
         public bool UpdateRoom(IRoom room)
         {
-            //return DatabaseAccess.UpdateData<bool>("Update Sensor set " +
-            //    "Name = \"" + room.Name + "\"," +
-            //    "MacAddress = hex(\"" + room.MACAddress + "\")," +
-            //    "IpAddress = \"" + room.IPAddress + "\"," +
-            //    "Description = \"" + room.Description + "\" " +
-            //    "WHERE ID = hex(\"" + room.GUID.ToString() + "\");");
-
             return DatabaseAccess.UpdateData<bool>("Update Sensor set " +
             "Name = \"" + room.Name + "\"," +
             "MacAddress = hex(\"" + room.MACAddress + "\")," +
             "IpAddress = \"" + room.IPAddress + "\", " +
             "Description = \"" + room.Description + "\" " +
             "WHERE ID = hex(\"" + room.GUID.ToString() + "\");");
-
-
         }
 
         public ISensor[] GetSensorsForRoom(string roomUUID)
