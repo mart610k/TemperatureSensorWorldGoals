@@ -8,7 +8,7 @@ namespace BackEndServices.Room
     {
         string MACAddress { get; }
 
-        string IPAddresss { get; }
+        string IPAddress { get; }
 
         string Description { get; }
 

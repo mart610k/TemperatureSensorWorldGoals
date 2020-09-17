@@ -9,12 +9,16 @@ namespace BackEndServices.Room
 
         public Room(string name, string guid, string macAddress, string ipAddress, string description) : base(name, guid)
         {
+            MACAddress = macAddress;
 
+            IPAddress = ipAddress;
+
+            Description = description;
         }
-        public string MACAddress => throw new NotImplementedException();
+        public string MACAddress { private set; get; }
 
-        public string IPAddresss => throw new NotImplementedException();
+        public string IPAddress { private set; get; }
 
-        public string Description => throw new NotImplementedException();
+        public string Description { private set; get; }
     }
 }
