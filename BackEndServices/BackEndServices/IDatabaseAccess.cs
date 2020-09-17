@@ -6,8 +6,8 @@ namespace BackEndServices
     {
         List<T> LoadData<T>(string sql);
 
-        bool UpdateData(string sql);
+        bool UpdateData<T>(string sql);
 
-        bool SaveData(string sql);
+        bool SaveData<T>(string sql);
     }
 }

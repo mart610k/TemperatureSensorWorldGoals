@@ -18,7 +18,7 @@ namespace BackEndServices
 
         public ISimpleRoom[] GetRooms()
         {
-            throw new NotImplementedException();
+            return DatabaseAccess.LoadData<ISimpleRoom>("Select unhex(ID),Name from Sensor;").ToArray();
         }
 
         public IRoom GetRoomDetailed(string roomDetailed)
