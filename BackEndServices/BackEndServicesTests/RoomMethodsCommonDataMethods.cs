@@ -82,6 +82,38 @@ namespace BackEndServicesTests
             }
         }
 
+        [Test]
+        public void CheckUpdateRoomIsCalledOnce()
+        {
+            string roomUUID = "8de8e4bc-1754-4e10-a3e5-7e535a5559a1";
+            IRoom room = GetSampleRoom();
+            string sqlStatement = "Update Sensor set " +
+                    "Name = \"" + room.Name + "\"," +
+                    "MacAddress = hex(\"" + room.MACAddress + "\")," +
+                    "IpAddress = \"" + room.IPAddress + "\", " +
+                    "Description = \"" + room.Description + "\" " +
+                    "WHERE ID = hex(\"" + room.GUID.ToString() + "\");";
+
+
+            using (AutoMock mock = AutoMock.GetStrict())
+            {
+                
+                mock.Mock<IDatabaseAccess>()
+                    .Setup(x => x.UpdateData<bool>(sqlStatement))
+                    .Returns(true);
+
+                CommonDataMethods cls = mock.Create<CommonDataMethods>();
+
+                bool expected = true;
+                bool actual = cls.UpdateRoom(room);
+
+                mock.Mock<IDatabaseAccess>().Verify(x => x.UpdateData<bool>(sqlStatement), Times.Exactly(1));
+
+                Assert.True(actual != false);
+                Assert.AreEqual(expected,actual);
+            }
+        }
+
 
         private List<ISimpleRoom> GetSampleRooms()
         {
@@ -93,10 +125,9 @@ namespace BackEndServicesTests
 
             return list;
         }
+
         private IRoom GetSampleRoom()
         {
-            
-
             return new Room("RoomA3", "8de8e4bc-1754-4e10-a3e5-7e535a5559a1","test","test","test");
         }
     }

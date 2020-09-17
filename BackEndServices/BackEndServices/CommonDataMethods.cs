@@ -23,12 +23,26 @@ namespace BackEndServices
 
         public IRoom GetRoomDetailed(string roomDetailed)
         {
-            throw new NotImplementedException();
+            return DatabaseAccess.LoadData<IRoom>("Select unhex(ID),Name,unhex(MacAdress),IpAddress,Description from Sensor where ID = hex(\"" + roomDetailed + "\");")[0];
         }
 
         public bool UpdateRoom(IRoom room)
         {
-            throw new NotImplementedException();
+            //return DatabaseAccess.UpdateData<bool>("Update Sensor set " +
+            //    "Name = \"" + room.Name + "\"," +
+            //    "MacAddress = hex(\"" + room.MACAddress + "\")," +
+            //    "IpAddress = \"" + room.IPAddress + "\"," +
+            //    "Description = \"" + room.Description + "\" " +
+            //    "WHERE ID = hex(\"" + room.GUID.ToString() + "\");");
+
+            return DatabaseAccess.UpdateData<bool>("Update Sensor set " +
+            "Name = \"" + room.Name + "\"," +
+            "MacAddress = hex(\"" + room.MACAddress + "\")," +
+            "IpAddress = \"" + room.IPAddress + "\", " +
+            "Description = \"" + room.Description + "\" " +
+            "WHERE ID = hex(\"" + room.GUID.ToString() + "\");");
+
+
         }
 
         public ISensor[] GetSensorsForRoom(string roomUUID)
