@@ -8,7 +8,7 @@ namespace BackEndServices.Database
 {
     public class CommonDataMethods : ICommonDataMethods
     {
-        IDatabaseAccess DatabaseAccess { get; set; }
+        protected IDatabaseAccess DatabaseAccess { get; set; }
 
 
         public CommonDataMethods(IDatabaseAccess databaseAccess)

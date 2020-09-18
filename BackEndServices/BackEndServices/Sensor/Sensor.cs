@@ -6,14 +6,16 @@ namespace BackEndServices.Sensor
 {
    public class Sensor : ISensor
     {
-        public int SensorID => throw new NotImplementedException();
+        public int SensorID { get; private set; }
 
-        public string SensorName => throw new NotImplementedException();
+        public string SensorName { get; private set; }
 
 
         public Sensor(int sensorID,string sensorName)
         {
+            SensorID = sensorID;
 
+            SensorName = sensorName;
         }
     }
 }
