@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BackEndServices
+namespace BackEndServices.Database
 {
     public interface ICommonDataMethods
     {

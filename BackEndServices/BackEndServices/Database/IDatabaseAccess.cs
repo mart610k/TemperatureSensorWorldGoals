@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BackEndServices
+namespace BackEndServices.Database
 {
     public interface IDatabaseAccess
     {
