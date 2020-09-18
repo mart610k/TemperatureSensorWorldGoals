@@ -38,12 +38,12 @@ namespace BackEndServices
 
         public ISensor[] GetSensorsForRoom(string roomUUID)
         {
-            throw new NotImplementedException();
+            return DatabaseAccess.LoadData<ISensor>("Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = hex(\"" + roomUUID + "\"))").ToArray();
         }
 
         public ISensor[] GetAllSensors()
         {
-            throw new NotImplementedException();
+            return DatabaseAccess.LoadData<ISensor>("Select ID,SensorName From SensorType;").ToArray();
         }
     }
 }

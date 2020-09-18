@@ -1,6 +1,7 @@
 using Autofac.Extras.Moq;
 using BackEndServices;
 using BackEndServices.Room;
+using BackEndServices.Sensor;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace BackEndServicesTests
 {
-    public class RoomMethodsCommonDataMethods
+    public class CommonDataMethodTests
     {
         [Test]
         public void CheckGetRoomsOnlyCallsGetDataOnce()
@@ -85,7 +86,6 @@ namespace BackEndServicesTests
         [Test]
         public void CheckUpdateRoomIsCalledOnce()
         {
-            string roomUUID = "8de8e4bc-1754-4e10-a3e5-7e535a5559a1";
             IRoom room = GetSampleRoom();
             string sqlStatement = "Update Sensor set " +
                     "Name = \"" + room.Name + "\"," +
@@ -94,10 +94,8 @@ namespace BackEndServicesTests
                     "Description = \"" + room.Description + "\" " +
                     "WHERE ID = hex(\"" + room.GUID.ToString() + "\");";
 
-
             using (AutoMock mock = AutoMock.GetStrict())
             {
-                
                 mock.Mock<IDatabaseAccess>()
                     .Setup(x => x.UpdateData<bool>(sqlStatement))
                     .Returns(true);
@@ -113,7 +111,53 @@ namespace BackEndServicesTests
                 Assert.AreEqual(expected,actual);
             }
         }
+        [Test]
+        public void CheckGetSensorsForRoomIsCalledOnce()
+        {
+            IRoom room = GetSampleRoom();
 
+            string sqlStatement = "Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = hex(\"" + room.GUID.ToString() + "\"))";
+
+            using (AutoMock mock = AutoMock.GetStrict())
+            {
+                mock.Mock<IDatabaseAccess>()
+                    .Setup(x => x.LoadData<ISensor>(sqlStatement))
+                    .Returns(GetSampleSensors());
+
+                CommonDataMethods cls = mock.Create<CommonDataMethods>();
+
+                List<ISensor> expected = GetSampleSensors();
+                List<ISensor> actual = cls.GetSensorsForRoom(room.GUID.ToString()).ToList();
+
+                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensor>(sqlStatement), Times.Exactly(1));
+
+                Assert.True(actual != null);
+                Assert.AreEqual(expected.Count, actual.Count);
+            }
+        }
+
+        [Test]
+        public void CheckGetAllSensorsAreCalledOnce()
+        {
+            string sqlStatement = "Select ID,SensorName From SensorType;";
+
+            using (AutoMock mock = AutoMock.GetStrict())
+            {
+                mock.Mock<IDatabaseAccess>()
+                    .Setup(x => x.LoadData<ISensor>(sqlStatement))
+                    .Returns(GetSampleSensors());
+
+                CommonDataMethods cls = mock.Create<CommonDataMethods>();
+
+                List<ISensor> expected = GetSampleSensors();
+                List<ISensor> actual = cls.GetAllSensors().ToList();
+
+                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensor>(sqlStatement), Times.Exactly(1));
+
+                Assert.True(actual != null);
+                Assert.AreEqual(expected.Count, actual.Count);
+            }
+        }
 
         private List<ISimpleRoom> GetSampleRooms()
         {
@@ -125,6 +169,17 @@ namespace BackEndServicesTests
 
             return list;
         }
+
+        private List<ISensor> GetSampleSensors()
+        {
+            List<ISensor> sensors = new List<ISensor>()
+            {
+                new Sensor(1,"Temperature"),
+                new Sensor(2,"Humidity")
+            };
+            return sensors;
+        }
+
 
         private IRoom GetSampleRoom()
         {
