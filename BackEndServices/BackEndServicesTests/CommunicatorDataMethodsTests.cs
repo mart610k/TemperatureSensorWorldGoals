@@ -19,14 +19,14 @@ namespace BackEndServicesTests
         [Test]
         public void CheckCreateRoomIsCalledOnce()
         {
-            IRoom roomToTest = new Room("Room1", "9d203ee6-2651-458a-8d7b-9eda0496d962", "FF:FF:FF:FF:FF:FF", "192.168.1.1","");
+            IRoom roomToTest = new Room("Room1", "9d203ee6-2651-458a-8d7b-9eda0496d962", "FF-FF-FF-FF-FF-FF", "192.168.1.1","");
             string sqlStatement = 
                 "Insert Into Sensor(ID,Name,MacAddress,IPAddress,Description) " +
                 "value (" +
                 "hex(\"" + roomToTest.GUID.ToString() + "\")," +
                 "\"" + roomToTest.Name + "\"," +
                 "hex(\"" + roomToTest.MACAddress + "\")," +
-                "\""+ roomToTest.IPAddress +"\"," +
+                "\""+ roomToTest.IPaddress +"\"," +
                 "\""+roomToTest.Description +"\"" +
                 ");";
 
