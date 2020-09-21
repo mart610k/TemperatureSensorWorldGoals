@@ -7,7 +7,7 @@ namespace BackEndServices.Database
 {
     public interface IWebDataActions
     {
-        ISensorReading[] GetSenssorReadings(string roomUUID, int sensorID, int count);
+        ISensorReading[] GetSensorReadings(string roomUUID, int sensorID, int count);
 
         ISensorLimit GetSensorLimitForRoom(string roomUUID, int sensorID);
 
