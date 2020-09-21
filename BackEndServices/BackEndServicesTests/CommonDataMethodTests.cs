@@ -1,5 +1,6 @@
 using Autofac.Extras.Moq;
-using BackEndServices;
+
+using BackEndServices.Database;
 using BackEndServices.Room;
 using BackEndServices.Sensor;
 using Moq;
@@ -90,7 +91,7 @@ namespace BackEndServicesTests
             string sqlStatement = "Update Sensor set " +
                     "Name = \"" + room.Name + "\"," +
                     "MacAddress = hex(\"" + room.MACAddress + "\")," +
-                    "IpAddress = \"" + room.IPAddress + "\", " +
+                    "IpAddress = \"" + room.IPaddress + "\", " +
                     "Description = \"" + room.Description + "\" " +
                     "WHERE ID = hex(\"" + room.GUID.ToString() + "\");";
 
@@ -183,7 +184,7 @@ namespace BackEndServicesTests
 
         private IRoom GetSampleRoom()
         {
-            return new Room("RoomA3", "8de8e4bc-1754-4e10-a3e5-7e535a5559a1","test","test","test");
+            return new Room("RoomA3", "8de8e4bc-1754-4e10-a3e5-7e535a5559a1","ff-ff-ff-ff-ff-ff","123.123.123.132","test");
         }
     }
 }
