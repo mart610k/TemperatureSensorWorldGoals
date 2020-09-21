@@ -17,7 +17,7 @@ namespace BackEndServicesTests
         {
             using (AutoMock mock = AutoMock.GetStrict())
             {
-                string sqlStatement = "Select unhex(ID),Name from Sensor;";
+                string sqlStatement = "Select hex(ID),Name from Sensor;";
 
                 mock.Mock<IDatabaseAccess>()
                     .Setup(x => x.LoadData<ISimpleRoom>(sqlStatement))
@@ -39,7 +39,7 @@ namespace BackEndServicesTests
         {
             using (AutoMock mock = AutoMock.GetStrict())
             {
-                string sqlStatement = "Select unhex(ID),Name from Sensor;";
+                string sqlStatement = "Select hex(ID),Name from Sensor;";
 
                 mock.Mock<IDatabaseAccess>()
                     .Setup(x => x.LoadData<ISimpleRoom>(sqlStatement))
@@ -93,7 +93,7 @@ namespace BackEndServicesTests
                     "MacAddress = hex(\"" + room.MACAddress + "\")," +
                     "IpAddress = \"" + room.IPaddress + "\", " +
                     "Description = \"" + room.Description + "\" " +
-                    "WHERE ID = hex(\"" + room.GUID.ToString() + "\");";
+                    "WHERE ID = unhex(\"" + room.GUID.ToString() + "\");";
 
             using (AutoMock mock = AutoMock.GetStrict())
             {
@@ -117,7 +117,7 @@ namespace BackEndServicesTests
         {
             IRoom room = GetSampleRoom();
 
-            string sqlStatement = "Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = hex(\"" + room.GUID.ToString() + "\"))";
+            string sqlStatement = "Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = unhex(\"" + room.GUID.ToString() + "\"))";
 
             using (AutoMock mock = AutoMock.GetStrict())
             {

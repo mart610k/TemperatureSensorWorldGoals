@@ -14,9 +14,9 @@ namespace BackEndServices.Database
         {
             return DatabaseAccess.SaveData<bool>(string.Format("Insert Into Sensor(ID,Name,MacAddress,IPAddress,Description) " +
                 "value (" +
-                "hex(\"{0}\")," +
+                "unhex(\"{0}\")," +
                 "\"{1}\"," +
-                "hex(\"{2}\")," +
+                "unhex(\"{2}\")," +
                 "\"{3}\"," +
                 "\"{4}\"" +
                 ");"
@@ -30,7 +30,7 @@ namespace BackEndServices.Database
         public bool CreateSensorReading(string roomUUID, ISensorReading sensorReading)
         {
 
-            return DatabaseAccess.SaveData<bool>(string.Format("Insert into SensorReading(SensorID,SensorTypeID,TimeRead,ValueRead) value (hex(\"{0}\"),{1},{2},{3});",roomUUID,sensorReading.SensorID,sensorReading.TimeRead,sensorReading.ValueRead));
+            return DatabaseAccess.SaveData<bool>(string.Format("Insert into SensorReading(SensorID,SensorTypeID,TimeRead,ValueRead) value (unhex(\"{0}\"),{1},{2},{3});", roomUUID,sensorReading.SensorID,sensorReading.TimeRead,sensorReading.ValueRead));
         }
 
         public bool RegisterSensor(ISensor sensor)

@@ -18,7 +18,7 @@ namespace BackEndServices.Database
 
         public ISimpleRoom[] GetRooms()
         {
-            return DatabaseAccess.LoadData<ISimpleRoom>("Select unhex(ID),Name from Sensor;").ToArray();
+            return DatabaseAccess.LoadData<ISimpleRoom>("Select hex(ID),Name from Sensor;").ToArray();
         }
 
         public IRoom GetRoomDetailed(string roomDetailed)
@@ -33,12 +33,12 @@ namespace BackEndServices.Database
             "MacAddress = hex(\"" + room.MACAddress + "\")," +
             "IpAddress = \"" + room.IPaddress + "\", " +
             "Description = \"" + room.Description + "\" " +
-            "WHERE ID = hex(\"" + room.GUID.ToString() + "\");");
+            "WHERE ID = unhex(\"" + room.GUID.ToString() + "\");");
         }
 
         public ISensor[] GetSensorsForRoom(string roomUUID)
         {
-            return DatabaseAccess.LoadData<ISensor>("Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = hex(\"" + roomUUID + "\"))").ToArray();
+            return DatabaseAccess.LoadData<ISensor>("Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = unhex(\"" + roomUUID + "\"))").ToArray();
         }
 
         public ISensor[] GetAllSensors()
