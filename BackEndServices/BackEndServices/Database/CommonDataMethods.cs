@@ -31,7 +31,7 @@ namespace BackEndServices.Database
             return DatabaseAccess.UpdateData<bool>("Update Sensor set " +
             "Name = \"" + room.Name + "\"," +
             "MacAddress = hex(\"" + room.MACAddress + "\")," +
-            "IpAddress = \"" + room.IPAddress + "\", " +
+            "IpAddress = \"" + room.IPaddress + "\", " +
             "Description = \"" + room.Description + "\" " +
             "WHERE ID = hex(\"" + room.GUID.ToString() + "\");");
         }

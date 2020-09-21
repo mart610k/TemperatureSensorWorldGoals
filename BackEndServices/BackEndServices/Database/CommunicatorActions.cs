@@ -23,7 +23,7 @@ namespace BackEndServices.Database
                 ,room.GUID.ToString(),
                 room.Name,
                 room.MACAddress,
-                room.IPAddress,
+                room.IPaddress,
                 room.Description));
         }
 
