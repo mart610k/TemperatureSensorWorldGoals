@@ -18,7 +18,7 @@ namespace BackEndServicesTests
         {
             string roomuuid = "b94df17e-d109-4e99-97c9-591a51529f85";
             int sensorTypeID = 1;
-            string sqlStatement = "Select SensorTypeID,SensorID,UpperLimit,LowerLimit from CustomSensorLimit where SensorID = hex(\"" + roomuuid + "\") and SensorTypeID = " + sensorTypeID + ";";
+            string sqlStatement = "Select SensorTypeID,hex(SensorID),UpperLimit,LowerLimit from CustomSensorLimit where SensorID = unhex(\"" + roomuuid + "\") and SensorTypeID = " + sensorTypeID + ";";
 
             using (AutoMock mock = AutoMock.GetStrict())
             {
@@ -45,7 +45,7 @@ namespace BackEndServicesTests
             string roomuuid = "b94df17e-d109-4e99-97c9-591a51529f85";
             int sensorTypeID = 1;
             int count = 3;
-            string sqlStatement = "Select SensorID,SensorTypeID,TimeRead,ValueRead from SensorReading where SensorID = hex(\""+ roomuuid +"\") and SensorTypeID = "+sensorTypeID +" Limit "+ count;
+            string sqlStatement = "Select hex(SensorID),SensorTypeID,TimeRead,ValueRead from SensorReading where SensorID = unhex(\""+ roomuuid +"\") and SensorTypeID = "+sensorTypeID +" Limit "+ count;
 
             using (AutoMock mock = AutoMock.GetStrict())
             {

@@ -79,7 +79,7 @@ namespace BackEndServicesTests
             DateTime dateTime = DateTime.UtcNow;
             ISensorReading sensorReading = new SensorReading(1, "Temperature", dateTime, 15.23f);
             string sqlStatement = string.Format("Insert into SensorReading(SensorID,SensorTypeID,TimeRead,ValueRead) " +
-                "value (hex(\"{0}\"),{1},{2},{3});",roomID,sensorReading.SensorID,sensorReading.TimeRead, sensorReading.ValueRead);
+                "value (unhex(\"{0}\"),{1},{2},{3});",roomID,sensorReading.SensorID,sensorReading.TimeRead, sensorReading.ValueRead);
 
 
             using (AutoMock mock = AutoMock.GetStrict())
