@@ -23,15 +23,15 @@ namespace BackEndServicesTests
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISensorLimit>(sqlStatement))
-                    .Returns(GetSampleLimit());
+                    .Setup(x => x.GetSensorForLimitForRoom(roomuuid,sensorTypeID))
+                    .Returns(GetSampleLimit()[0]);
 
                 WebDataActions cls = mock.Create<WebDataActions>();
 
                 ISensorLimit expected = GetSampleLimit()[0];
                 ISensorLimit actual = cls.GetSensorLimitForRoom(roomuuid, sensorTypeID);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensorLimit>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensorForLimitForRoom(roomuuid, sensorTypeID), Times.Exactly(1));
 
                 Assert.AreEqual(expected.SensorID, actual.SensorID);
                 Assert.AreEqual(expected.SensorName, actual.SensorName);
@@ -50,15 +50,15 @@ namespace BackEndServicesTests
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISensorReading>(sqlStatement))
-                    .Returns(GetSampleReadings());
+                    .Setup(x => x.GetSensorReadings(roomuuid,sensorTypeID,count))
+                    .Returns(GetSampleReadings().ToArray());
 
                 WebDataActions cls = mock.Create<WebDataActions>();
 
                 List<ISensorReading> expected = GetSampleReadings();
                 List<ISensorReading> actual = cls.GetSensorReadings(roomuuid, sensorTypeID,count).ToList();
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensorReading>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensorReadings(roomuuid, sensorTypeID, count), Times.Exactly(1));
 
                 Assert.AreEqual(expected.Count, actual.Count);
             }

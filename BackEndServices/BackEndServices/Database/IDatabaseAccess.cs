@@ -1,13 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using BackEndServices.Room;
+using BackEndServices.Sensor;
+using System.Collections.Generic;
 
 namespace BackEndServices.Database
 {
     public interface IDatabaseAccess
     {
-        List<T> LoadData<T>(string sql);
+        ISimpleRoom[] GetRooms();
 
-        bool UpdateData<T>(string sql);
+        IRoom GetDetailedRoom(string roomuuid);
 
-        bool SaveData<T>(string sql);
+        bool UpdateRoom(IRoom room);
+
+        ISensor[] GetSensorsForRoom(string roomuuid);
+        ISensor[] GetSensors();
+
+        bool CreateRoom(IRoom room);
+
+        bool RegisterSensor(ISensor sensor);
+        bool CreateSensorReading(string roomUUID, ISensorReading sensorReading);
+        ISensorLimit GetSensorForLimitForRoom(string roomuuid, int sensorTypeID);
+        ISensorReading[] GetSensorReadings(string roomuuid, int sensorTypeID, int count );
     }
 }

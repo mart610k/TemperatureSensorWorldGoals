@@ -13,13 +13,12 @@ namespace BackEndServices.Database
 
         public ISensorLimit GetSensorLimitForRoom(string roomUUID, int sensorID)
         {
-            return DatabaseAccess.LoadData<ISensorLimit>(string.Format("Select SensorTypeID,hex(SensorID),UpperLimit,LowerLimit from CustomSensorLimit where SensorID = unhex(\"{0}\") and SensorTypeID = {1};", roomUUID, sensorID))[0];
+            return DatabaseAccess.GetSensorForLimitForRoom(roomUUID, sensorID);   
         }
 
         public ISensorReading[] GetSensorReadings(string roomUUID, int sensorID, int count)
         {
-            return DatabaseAccess.LoadData<ISensorReading>(string.Format("Select hex(SensorID),SensorTypeID,TimeRead,ValueRead from SensorReading where SensorID = unhex(\"{0}\") and SensorTypeID = {1} Limit {2}", roomUUID, sensorID, count)).ToArray();
-
+            return DatabaseAccess.GetSensorReadings(roomUUID, sensorID, count);
 
         }
 

@@ -12,30 +12,17 @@ namespace BackEndServices.Database
 
         public bool CreateRoom(IRoom room)
         {
-            return DatabaseAccess.SaveData<bool>(string.Format("Insert Into Sensor(ID,Name,MacAddress,IPAddress,Description) " +
-                "value (" +
-                "unhex(\"{0}\")," +
-                "\"{1}\"," +
-                "unhex(\"{2}\")," +
-                "\"{3}\"," +
-                "\"{4}\"" +
-                ");"
-                ,room.GUID.ToString(),
-                room.Name,
-                room.MACAddress,
-                room.IPaddress,
-                room.Description));
+            return DatabaseAccess.CreateRoom(room);
         }
 
         public bool CreateSensorReading(string roomUUID, ISensorReading sensorReading)
         {
-
-            return DatabaseAccess.SaveData<bool>(string.Format("Insert into SensorReading(SensorID,SensorTypeID,TimeRead,ValueRead) value (unhex(\"{0}\"),{1},{2},{3});", roomUUID,sensorReading.SensorID,sensorReading.TimeRead,sensorReading.ValueRead));
+            return DatabaseAccess.CreateSensorReading(roomUUID,sensorReading);
         }
 
         public bool RegisterSensor(ISensor sensor)
         {
-            return DatabaseAccess.SaveData<bool>(string.Format("Insert Into SensorType(ID,SensorName) value ({0},\"{1}\");", sensor.SensorID, sensor.SensorName));
+            return DatabaseAccess.RegisterSensor(sensor);
         }
     }
 }
