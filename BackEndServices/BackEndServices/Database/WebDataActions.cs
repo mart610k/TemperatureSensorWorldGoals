@@ -19,12 +19,11 @@ namespace BackEndServices.Database
         public ISensorReading[] GetSensorReadings(string roomUUID, int sensorID, int count)
         {
             return DatabaseAccess.GetSensorReadings(roomUUID, sensorID, count);
-
         }
 
         public bool SetSensorLimitForRoom(string roomUUID, ISensorLimit sensorLimit)
         {
-            throw new NotImplementedException();
+            return DatabaseAccess.SetSensorLimitForRoom(roomUUID, sensorLimit);
         }
     }
 }

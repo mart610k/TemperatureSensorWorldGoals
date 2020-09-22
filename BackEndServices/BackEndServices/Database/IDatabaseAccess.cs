@@ -21,5 +21,7 @@ namespace BackEndServices.Database
         bool CreateSensorReading(string roomUUID, ISensorReading sensorReading);
         ISensorLimit GetSensorForLimitForRoom(string roomuuid, int sensorTypeID);
         ISensorReading[] GetSensorReadings(string roomuuid, int sensorTypeID, int count );
+
+        bool SetSensorLimitForRoom(string roomuuid, ISensorLimit sensorLimit);
     }
 }
