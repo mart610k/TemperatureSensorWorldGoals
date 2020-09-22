@@ -12,28 +12,15 @@ namespace BackEndServicesTests
 {
     class CommunicatorDataMethodsTests
     {
-        
-
-       
-
         [Test]
         public void CheckCreateRoomIsCalledOnce()
         {
             IRoom roomToTest = new Room("Room1", "9d203ee6-2651-458a-8d7b-9eda0496d962", "FF-FF-FF-FF-FF-FF", "192.168.1.1","");
-            string sqlStatement = 
-                "Insert Into Sensor(ID,Name,MacAddress,IPAddress,Description) " +
-                "value (" +
-                "hex(\"" + roomToTest.GUID.ToString() + "\")," +
-                "\"" + roomToTest.Name + "\"," +
-                "hex(\"" + roomToTest.MACAddress + "\")," +
-                "\""+ roomToTest.IPaddress +"\"," +
-                "\""+roomToTest.Description +"\"" +
-                ");";
 
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.SaveData<bool>(sqlStatement))
+                    .Setup(x => x.CreateRoom(roomToTest))
                     .Returns(true);
 
                 CommunicatorActions cls = mock.Create<CommunicatorActions>();
@@ -41,7 +28,7 @@ namespace BackEndServicesTests
                 bool expected = true;
                 bool actual = cls.CreateRoom(roomToTest);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.SaveData<bool>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.CreateRoom(roomToTest), Times.Exactly(1));
 
                 Assert.AreEqual(expected, actual);
             }
@@ -56,7 +43,7 @@ namespace BackEndServicesTests
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.SaveData<bool>(sqlStatement))
+                    .Setup(x => x.RegisterSensor(sensor))
                     .Returns(true);
 
                 CommunicatorActions cls = mock.Create<CommunicatorActions>();
@@ -64,7 +51,7 @@ namespace BackEndServicesTests
                 bool expected = true;
                 bool actual = cls.RegisterSensor(sensor);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.SaveData<bool>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.RegisterSensor(sensor), Times.Exactly(1));
 
                 Assert.AreEqual(expected, actual);
 
@@ -85,7 +72,7 @@ namespace BackEndServicesTests
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.SaveData<bool>(sqlStatement))
+                    .Setup(x => x.CreateSensorReading(roomID,sensorReading))
                     .Returns(true);
 
                 CommunicatorActions cls = mock.Create<CommunicatorActions>();
@@ -93,7 +80,7 @@ namespace BackEndServicesTests
                 bool expected = true;
                 bool actual = cls.CreateSensorReading(roomID, sensorReading);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.SaveData<bool>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.CreateSensorReading(roomID, sensorReading), Times.Exactly(1));
 
                 Assert.AreEqual(expected, actual);
             }

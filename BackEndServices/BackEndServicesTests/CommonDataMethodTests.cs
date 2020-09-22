@@ -16,47 +16,24 @@ namespace BackEndServicesTests
         public void CheckGetRoomsOnlyCallsGetDataOnce()
         {
             using (AutoMock mock = AutoMock.GetStrict())
-            {
-                string sqlStatement = "Select hex(ID),Name from Sensor;";
+            { 
 
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISimpleRoom>(sqlStatement))
-                    .Returns(GetSampleRooms());
+                    .Setup(x => x.GetRooms())
+                    .Returns(GetSampleRooms().ToArray);
 
                 CommonDataMethods cls = mock.Create<CommonDataMethods>();
 
                 List<ISimpleRoom> expected = GetSampleRooms();
                 List<ISimpleRoom> actual = cls.GetRooms().ToList();
                 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISimpleRoom>(sqlStatement),Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetRooms(),Times.Exactly(1));
 
                 Assert.True(actual != null);
                 Assert.AreEqual(expected.Count, actual.Count);
             }
         }
-        [Test]
-        public void CheckGetRoomsCallsGetRoomsAndRetrievesData()
-        {
-            using (AutoMock mock = AutoMock.GetStrict())
-            {
-                string sqlStatement = "Select hex(ID),Name from Sensor;";
-
-                mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISimpleRoom>(sqlStatement))
-                    .Returns(GetSampleRooms());
-
-                CommonDataMethods cls = mock.Create<CommonDataMethods>();
-
-
-                List<ISimpleRoom> expected = GetSampleRooms();
-                List<ISimpleRoom> actual = cls.GetRooms().ToList();
-
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISimpleRoom>(sqlStatement), Times.Exactly(1));
-
-                Assert.True(actual != null);
-                Assert.AreEqual(expected.Count, actual.Count);
-            }
-        }
+        
 
         [Test]
         public void CheckDetailedRoomIsReturned()
@@ -65,11 +42,9 @@ namespace BackEndServicesTests
             string roomUUID = "8de8e4bc-1754-4e10-a3e5-7e535a5559a1";
             using (AutoMock mock = AutoMock.GetStrict())
             {
-                string sqlStatement = "Select unhex(ID),Name,unhex(MacAdress),IpAddress,Description from Sensor where ID = hex(\""+ roomUUID + "\");";
-
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<IRoom>(sqlStatement))
-                    .Returns(new List<IRoom> { GetSampleRoom() });
+                    .Setup(x => x.GetDetailedRoom(roomUUID))
+                    .Returns(GetSampleRoom());
 
                 CommonDataMethods cls = mock.Create<CommonDataMethods>();
 
@@ -77,7 +52,7 @@ namespace BackEndServicesTests
                 IRoom expected = GetSampleRoom();
                 IRoom actual = cls.GetRoomDetailed(roomUUID);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISimpleRoom>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetDetailedRoom(roomUUID), Times.Exactly(1));
 
                 Assert.True(actual != null);
                 Assert.AreEqual(expected.GUID.ToString(),actual.GUID.ToString());
@@ -98,7 +73,7 @@ namespace BackEndServicesTests
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.UpdateData<bool>(sqlStatement))
+                    .Setup(x => x.UpdateRoom(room))
                     .Returns(true);
 
                 CommonDataMethods cls = mock.Create<CommonDataMethods>();
@@ -106,7 +81,7 @@ namespace BackEndServicesTests
                 bool expected = true;
                 bool actual = cls.UpdateRoom(room);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.UpdateData<bool>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.UpdateRoom(room), Times.Exactly(1));
 
                 Assert.True(actual != false);
                 Assert.AreEqual(expected,actual);
@@ -117,20 +92,18 @@ namespace BackEndServicesTests
         {
             IRoom room = GetSampleRoom();
 
-            string sqlStatement = "Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = unhex(\"" + room.GUID.ToString() + "\"))";
-
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISensor>(sqlStatement))
-                    .Returns(GetSampleSensors());
+                    .Setup(x => x.GetSensorsForRoom(room.GUID.ToString()))
+                    .Returns(GetSampleSensors().ToArray());
 
                 CommonDataMethods cls = mock.Create<CommonDataMethods>();
 
                 List<ISensor> expected = GetSampleSensors();
                 List<ISensor> actual = cls.GetSensorsForRoom(room.GUID.ToString()).ToList();
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensor>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensorsForRoom(room.GUID.ToString()), Times.Exactly(1));
 
                 Assert.True(actual != null);
                 Assert.AreEqual(expected.Count, actual.Count);
@@ -140,20 +113,18 @@ namespace BackEndServicesTests
         [Test]
         public void CheckGetAllSensorsAreCalledOnce()
         {
-            string sqlStatement = "Select ID,SensorName From SensorType;";
-
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISensor>(sqlStatement))
-                    .Returns(GetSampleSensors());
+                    .Setup(x => x.GetSensors())
+                    .Returns(GetSampleSensors().ToArray());
 
                 CommonDataMethods cls = mock.Create<CommonDataMethods>();
 
                 List<ISensor> expected = GetSampleSensors();
                 List<ISensor> actual = cls.GetAllSensors().ToList();
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensor>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensors(), Times.Exactly(1));
 
                 Assert.True(actual != null);
                 Assert.AreEqual(expected.Count, actual.Count);

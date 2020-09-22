@@ -23,15 +23,15 @@ namespace BackEndServicesTests
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISensorLimit>(sqlStatement))
-                    .Returns(GetSampleLimit());
+                    .Setup(x => x.GetSensorForLimitForRoom(roomuuid,sensorTypeID))
+                    .Returns(GetSampleLimit()[0]);
 
                 WebDataActions cls = mock.Create<WebDataActions>();
 
                 ISensorLimit expected = GetSampleLimit()[0];
                 ISensorLimit actual = cls.GetSensorLimitForRoom(roomuuid, sensorTypeID);
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensorLimit>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensorForLimitForRoom(roomuuid, sensorTypeID), Times.Exactly(1));
 
                 Assert.AreEqual(expected.SensorID, actual.SensorID);
                 Assert.AreEqual(expected.SensorName, actual.SensorName);
@@ -45,22 +45,45 @@ namespace BackEndServicesTests
             string roomuuid = "b94df17e-d109-4e99-97c9-591a51529f85";
             int sensorTypeID = 1;
             int count = 3;
-            string sqlStatement = "Select hex(SensorID),SensorTypeID,TimeRead,ValueRead from SensorReading where SensorID = unhex(\""+ roomuuid +"\") and SensorTypeID = "+sensorTypeID +" Limit "+ count;
 
             using (AutoMock mock = AutoMock.GetStrict())
             {
                 mock.Mock<IDatabaseAccess>()
-                    .Setup(x => x.LoadData<ISensorReading>(sqlStatement))
-                    .Returns(GetSampleReadings());
+                    .Setup(x => x.GetSensorReadings(roomuuid,sensorTypeID,count))
+                    .Returns(GetSampleReadings().ToArray());
 
                 WebDataActions cls = mock.Create<WebDataActions>();
 
                 List<ISensorReading> expected = GetSampleReadings();
                 List<ISensorReading> actual = cls.GetSensorReadings(roomuuid, sensorTypeID,count).ToList();
 
-                mock.Mock<IDatabaseAccess>().Verify(x => x.LoadData<ISensorReading>(sqlStatement), Times.Exactly(1));
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensorReadings(roomuuid, sensorTypeID, count), Times.Exactly(1));
 
                 Assert.AreEqual(expected.Count, actual.Count);
+            }
+        }
+
+        [Test]
+        public void CheckSettingSensorIsCalled()
+        {
+            string roomuuid = "b94df17e-d109-4e99-97c9-591a51529f85";
+            ISensorLimit sensorLimit = new SensorLimit(1, "Humidity", 15.25F, 32.00F);
+
+
+            using (AutoMock mock = AutoMock.GetStrict())
+            {
+                mock.Mock<IDatabaseAccess>()
+                    .Setup(x => x.SetSensorLimitForRoom(roomuuid, sensorLimit))
+                    .Returns(true);
+
+                WebDataActions cls = mock.Create<WebDataActions>();
+
+                bool expected = true;
+                bool actual = cls.SetSensorLimitForRoom(roomuuid, sensorLimit);
+
+                mock.Mock<IDatabaseAccess>().Verify(x => x.SetSensorLimitForRoom(roomuuid, sensorLimit), Times.Exactly(1));
+
+                Assert.AreEqual(expected, actual);
             }
         }
 

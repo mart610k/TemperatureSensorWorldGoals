@@ -18,32 +18,27 @@ namespace BackEndServices.Database
 
         public ISimpleRoom[] GetRooms()
         {
-            return DatabaseAccess.LoadData<ISimpleRoom>("Select hex(ID),Name from Sensor;").ToArray();
+            return DatabaseAccess.GetRooms();
         }
 
         public IRoom GetRoomDetailed(string roomDetailed)
         {
-            return DatabaseAccess.LoadData<IRoom>("Select unhex(ID),Name,unhex(MacAdress),IpAddress,Description from Sensor where ID = hex(\"" + roomDetailed + "\");")[0];
+            return DatabaseAccess.GetDetailedRoom(roomDetailed);
         }
 
         public bool UpdateRoom(IRoom room)
         {
-            return DatabaseAccess.UpdateData<bool>("Update Sensor set " +
-            "Name = \"" + room.Name + "\"," +
-            "MacAddress = hex(\"" + room.MACAddress + "\")," +
-            "IpAddress = \"" + room.IPaddress + "\", " +
-            "Description = \"" + room.Description + "\" " +
-            "WHERE ID = unhex(\"" + room.GUID.ToString() + "\");");
+            return DatabaseAccess.UpdateRoom(room);
         }
 
         public ISensor[] GetSensorsForRoom(string roomUUID)
         {
-            return DatabaseAccess.LoadData<ISensor>("Select ID, SensorName From SensorType Where ID in (Select SensorTypeID where SensorID = unhex(\"" + roomUUID + "\"))").ToArray();
+            return DatabaseAccess.GetSensorsForRoom(roomUUID);
         }
 
         public ISensor[] GetAllSensors()
         {
-            return DatabaseAccess.LoadData<ISensor>("Select ID,SensorName From SensorType;").ToArray();
+            return DatabaseAccess.GetSensors();
         }
     }
 }
