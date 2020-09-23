@@ -86,6 +86,14 @@ namespace BackEndServicesTests
                 Assert.AreEqual(expected, actual);
             }
         }
+        [Test]
+        public void Test()
+        {
+            CommunicatorActions communicator = new CommunicatorActions(new MySQLDatabaseAccess("localhost", "WorldGoals", "test", "rSFC68k0QY"));
+
+
+            communicator.GetRooms();
+        }
 
 
         private List<ISensorReading> GetSampleReadings()

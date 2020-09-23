@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace BackEndServices.Database
 {
-    class MySQLDatabaseAccess : IDatabaseAccess
+    public class MySQLDatabaseAccess : IDatabaseAccess
     {
         public string Host { get; private set; }
         protected string UserName { get; private set; }
@@ -26,7 +26,7 @@ namespace BackEndServices.Database
         
         private string GetConnectionString()
         {
-            return string.Format("Server={0};Database={1};Uid={2};Pwd={3};",Host,DatabaseName,UserName,UserPassword);
+            return string.Format("Server={0}; Database={1}; Uid={2}; Pwd={3};",Host,DatabaseName,UserName,UserPassword);
         }
 
         public bool CreateRoom(IRoom room)
@@ -89,9 +89,8 @@ namespace BackEndServices.Database
 
             MySqlDataReader reader = command.ExecuteReader();
             IRoom room = null;
-            while (reader.HasRows)
+            while(reader.Read())
             {
-                reader.Read();
                 room = new Room.Room(reader.GetString("Name"), reader.GetString("BIN_TO_UUID(ID)"), reader.GetString("HEX(MacAddress)"), reader.GetString("IpAddress"), reader.GetString("Description"));
             }
 
@@ -109,10 +108,10 @@ namespace BackEndServices.Database
 
             MySqlDataReader reader = command.ExecuteReader();
             List<ISimpleRoom> roomList = new List<ISimpleRoom>();
-
-            while (reader.HasRows)
+           
+            while (reader.Read())
             {
-                reader.Read();
+                
                 roomList.Add(new SimpleRoom(reader.GetString("Name"), reader.GetString("BIN_TO_UUID(ID)")));
             }
 
@@ -132,9 +131,8 @@ namespace BackEndServices.Database
             List<ISensor> sensors = new List<ISensor>();
             conn.Open();
             MySqlDataReader reader = command.ExecuteReader();
-            while (reader.HasRows)
+            while(reader.Read())
             {
-                reader.Read();
                 sensors.Add(new Sensor.Sensor(reader.GetInt32("ID"), reader.GetString("SensorName")));
 
             }
@@ -186,9 +184,8 @@ namespace BackEndServices.Database
             conn.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
-            while (reader.HasRows)
+            while(reader.Read())
             {
-                reader.Read();
                 sensorReadings.Add(new SensorReading(reader.GetInt32("SensorReading.ValueRead"), reader.GetString("SensorType.SensorName"), reader.GetDateTime("SensorReading.TimeRead"), reader.GetFloat("SensorReading.ValueRead")));
             }
             reader.Close();
