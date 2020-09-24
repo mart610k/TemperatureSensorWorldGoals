@@ -4,5 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="BackEndServices">
+      <HintPath>..\..\..\BackEndServices\BackEndServices\bin\Debug\netcoreapp3.1\BackEndServices.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>
