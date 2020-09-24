@@ -242,5 +242,32 @@ namespace BackEndServices.Database
         {
             throw new NotImplementedException();
         }
+
+        public ISensor GetSensorByName(string sensorName)
+        {
+            MySqlConnection conn = new MySqlConnection(GetConnectionString());
+            MySqlCommand command = conn.CreateCommand();
+
+            command.CommandText = "SELECT ID,SensorName FROM SensorType WHERE SensorName LIKE @sensorName; LIMIT 1";
+            command.Parameters.AddWithValue("@sensorName", sensorName);
+
+
+            ISensor sensor = null;
+            conn.Open();
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            try
+            {
+                sensor = new Sensor.Sensor(reader.GetInt32("ID"), reader.GetString("SensorName"));
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            reader.Close();
+            conn.Close();
+
+            return sensor;
+        }
     }
 }
