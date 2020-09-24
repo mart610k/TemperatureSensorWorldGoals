@@ -40,5 +40,10 @@ namespace BackEndServices.Database
         {
             return DatabaseAccess.GetSensors();
         }
+
+        public ISensor GetSensorByName(string sensorName)
+        {
+            return DatabaseAccess.GetSensorByName(sensorName);
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace BackEndServices.Database
 
         ISensor[] GetAllSensors();
 
+        ISensor GetSensorByName(string sensorName);
+
 
     }
 }
