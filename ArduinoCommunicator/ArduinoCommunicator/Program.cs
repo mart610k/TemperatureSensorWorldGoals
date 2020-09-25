@@ -10,6 +10,7 @@ using BackEndServices.Sensor;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.IO;
+using BackEndServices.ConfigReader;
 
 namespace ArduinoCommunicator
 {
@@ -30,30 +31,11 @@ namespace ArduinoCommunicator
             Console.WriteLine(message);
         }
 
-        static Dictionary<string, string> ReadConfigFile()
-        {
-            Dictionary<string, string> config = new Dictionary<string, string>();
-
-            using (StreamReader str = new StreamReader(@"D:\Skole\H3\TemperatureSensorWorldGoalsOld\mysqlConnectionConfig.cfg"))
-            {
-                string configFile = str.ReadToEnd();
-                string[] tmp = configFile.Split(Environment.NewLine);
-
-                for (int i = 0; i < tmp.Length; i++)
-                {
-                    Console.WriteLine(tmp[i]);
-                    string[] values = tmp[i].Split("=");
-                    config.Add(values[0], values[1]);
-                }
-            }
-            return config;
-        }
-
         static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
 
-            Dictionary<string, string> config = ReadConfigFile();
+            Dictionary<string, string> config = Config.ReadConfig(@"D:\Skole\H3\TemperatureSensorWorldGoals\mysqlConnectionConfig.cfg");
 
             communicator = new CommunicatorActions(new MySQLDatabaseAccess(config["host"], config["databasename"], config["username"], config["password"]));
 
@@ -63,7 +45,7 @@ namespace ArduinoCommunicator
 
             for (int i = 0; i < rooms.Count; i++)
             {
-                updater.RegisterThread(rooms[i].GUID.ToString(),rooms[i].IPaddress, 5);
+                updater.RegisterThread(communicator, rooms[i].GUID.ToString(),rooms[i].IPaddress, 5);
             }
             Console.ReadKey();
 
