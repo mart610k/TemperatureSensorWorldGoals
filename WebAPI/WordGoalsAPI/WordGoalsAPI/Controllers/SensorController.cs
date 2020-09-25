@@ -13,18 +13,14 @@ namespace WordGoalsAPI.Controllers
     [Route("api/[controller]")]
     public class SensorController : ControllerBase
     {
-
-
         WebDataActions dataActions;
 
         public SensorController()
         {
             Dictionary<string, string> config = BackEndServices.ConfigReader.Config.ReadConfig(@"D:\Skole\H3\TemperatureSensorWorldGoals\mysqlConnectionConfig.cfg");
 
-
             dataActions = new WebDataActions(new MySQLDatabaseAccess(config["host"], config["databasename"], config["username"], config["password"]));
         }
-
 
         [HttpGet("Sensors")]
         public IEnumerable<ISensor> Get()
@@ -37,5 +33,13 @@ namespace WordGoalsAPI.Controllers
         {
             return dataActions.GetSensorByName(page);
         }
+
+        [HttpGet("Room")]
+        public ISensor[] GetSensorsFromRoom([FromQuery(Name = "uuid")] string roomUUID)
+        {
+            return dataActions.GetSensorsForRoom(roomUUID);
+        }
+
+
     }
 }
