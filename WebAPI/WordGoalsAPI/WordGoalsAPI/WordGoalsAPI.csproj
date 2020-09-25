@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.21" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="BackEndServices">
       <HintPath>..\..\..\BackEndServices\BackEndServices\bin\Debug\netcoreapp3.1\BackEndServices.dll</HintPath>
     </Reference>
