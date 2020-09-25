@@ -186,7 +186,11 @@ namespace BackEndServices.Database
 
             while(reader.Read())
             {
-                sensorReadings.Add(new SensorReading(reader.GetInt32("SensorReading.ValueRead"), reader.GetString("SensorType.SensorName"), reader.GetDateTime("SensorReading.TimeRead"), reader.GetFloat("SensorReading.ValueRead")));
+                sensorReadings.Add(new SensorReading(
+                    reader.GetInt32("SensorTypeID"), 
+                    reader.GetString("SensorName"), 
+                    reader.GetDateTime("TimeRead"), 
+                    reader.GetFloat("ValueRead")));
             }
             reader.Close();
 
@@ -248,7 +252,7 @@ namespace BackEndServices.Database
             MySqlConnection conn = new MySqlConnection(GetConnectionString());
             MySqlCommand command = conn.CreateCommand();
 
-            command.CommandText = "SELECT ID,SensorName FROM SensorType WHERE SensorName LIKE @sensorName; LIMIT 1";
+            command.CommandText = "SELECT ID,SensorName FROM SensorType WHERE SensorName LIKE @sensorName LIMIT 1;";
             command.Parameters.AddWithValue("@sensorName", sensorName);
 
 
