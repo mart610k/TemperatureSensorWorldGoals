@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGoalsAPI", "WordGoalsAPI\WordGoalsAPI.csproj", "{DC1A9CAA-086F-4550-ABAC-578733DB488D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC1A9CAA-086F-4550-ABAC-578733DB488D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC1A9CAA-086F-4550-ABAC-578733DB488D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC1A9CAA-086F-4550-ABAC-578733DB488D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC1A9CAA-086F-4550-ABAC-578733DB488D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3427AB5B-2700-418B-ABF9-052F9FB609B2}
+	EndGlobalSection
+EndGlobal
