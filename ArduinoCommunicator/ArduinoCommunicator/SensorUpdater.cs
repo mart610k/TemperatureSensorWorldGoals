@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
+using BackEndServices.Database;
 
 namespace ArduinoCommunicator
 {
@@ -55,15 +56,15 @@ namespace ArduinoCommunicator
         }
 
 
-        public bool RegisterThread(string roomUUID, string host, int waitingTimeInSeconds)
+        public bool RegisterThread(ICommonDataMethods commonDataMethods, string roomUUID, string host, int waitingTimeInSeconds)
         {
-            Thread thread = new Thread(() => SensorGetter(roomUUID, host, waitingTimeInSeconds));
+            Thread thread = new Thread(() => SensorGetter(commonDataMethods, roomUUID, host, waitingTimeInSeconds));
             thread.Start();
             threads.Add(thread);
             return true;
         }
 
-        private void SensorGetter(string roomUUID,string host, int waitingTimeInSeconds)
+        private void SensorGetter(ICommonDataMethods commonDataMethods, string roomUUID,string host, int waitingTimeInSeconds)
         {
             HttpClient client = new HttpClient();
 
@@ -90,7 +91,7 @@ namespace ArduinoCommunicator
                                 if(jToken.Type == JTokenType.Float || jToken.Type == JTokenType.Integer)
                                 {
                                     float valueRead = (float)jToken;
-                                    ISensor sensor = Program.communicator.GetSensorByName(keys[i]);
+                                    ISensor sensor = commonDataMethods.GetSensorByName(keys[i]);
                                     ISensorReading sensorReading = new SensorReading(sensor.SensorID, sensor.SensorName, DateTime.UtcNow, valueRead);
 
                                     Program.communicator.CreateSensorReading(roomUUID, sensorReading);
