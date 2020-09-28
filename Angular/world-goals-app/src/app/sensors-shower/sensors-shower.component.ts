@@ -9,7 +9,7 @@ import {Sensor} from "../Sensor";
   styleUrls: ['./sensors-shower.component.css']
 })
 export class SensorsShowerComponent implements OnInit {
-  private sensors : Sensor[];
+  sensors : Sensor[];
 
   constructor(private http: HttpClient) { 
     this.GetData()
@@ -17,8 +17,6 @@ export class SensorsShowerComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 
   GetData() {
     this.http.get<Sensor[]>("https://localhost:44379/api/Sensor/Sensors").subscribe(
