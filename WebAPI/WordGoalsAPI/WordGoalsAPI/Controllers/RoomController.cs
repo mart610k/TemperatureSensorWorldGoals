@@ -23,8 +23,6 @@ namespace WordGoalsAPI.Controllers
 
             dataActions = new WebDataActions(new MySQLDatabaseAccess(config["host"], config["databasename"], config["username"], config["password"]));
         }
-
-
         [HttpGet("Rooms")]
         public ISimpleRoom[] GetRooms()
         {
@@ -41,6 +39,12 @@ namespace WordGoalsAPI.Controllers
         public ISensorReading[] GetReadings([FromQuery(Name = "Room")] string room,[FromQuery(Name = "SensorID")] int sensorID, [FromQuery(Name = "Count")] int count)
         {
             return dataActions.GetSensorReadings(room, sensorID, count);
+        }
+
+        [HttpGet("Sensors")]
+        public ISensor[] GetRoomSensors([FromQuery(Name = "Room")] string room)
+        {
+            return dataActions.GetSensorsForRoom(room);
         }
 
     }

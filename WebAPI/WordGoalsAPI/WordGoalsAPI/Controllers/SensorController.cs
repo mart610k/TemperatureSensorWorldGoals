@@ -40,6 +40,6 @@ namespace WordGoalsAPI.Controllers
             return dataActions.GetSensorsForRoom(roomUUID);
         }
 
-
+        
     }
 }
