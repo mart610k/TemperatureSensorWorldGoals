@@ -1,0 +1,16 @@
+
+<table>
+<tr>    
+    <th>sensorName</th>
+    <th>sensorID</th>
+    <th>timeRead</th>
+    <th>valueRead</th>
+</tr>
+<tr *ngFor="let reading of sensorsReading;let i = index">
+
+    <td>{{reading.sensorName}}</td>
+    <td>{{reading.sensorID}}</td>
+    <td>{{reading.timeRead}}</td>
+    <td>{{reading.valueRead}}</td>
+</tr>
+</table>
