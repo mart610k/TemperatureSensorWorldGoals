@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {SimpleRoom} from "../simple-room";
 
 @Component({
@@ -8,7 +8,7 @@ import {SimpleRoom} from "../simple-room";
   styleUrls: ['./room-brief.component.css']
 })
 export class RoomBriefComponent implements OnInit {
-  roomData : SimpleRoom[]; 
+  roomData : SimpleRoom[];
 
 
   constructor(private http : HttpClient) {
@@ -27,4 +27,5 @@ export class RoomBriefComponent implements OnInit {
       }
     );
   }
+  
 }

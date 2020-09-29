@@ -9,7 +9,7 @@ import {Sensor} from "../Sensor";
   styleUrls: ['./sensors-shower.component.css']
 })
 export class SensorsShowerComponent implements OnInit {
-  sensors : Sensor[];
+  sensors : Sensor[] = [] ;
 
   constructor(private http: HttpClient) { 
     this.GetData()

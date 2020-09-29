@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SensorsShowerComponent } from './sensors-shower/sensors-shower.component';
 import { RoomBriefComponent } from './room-brief/room-brief.component';
+import { SensorbannerComponent } from './sensorbanner/sensorbanner.component';
+import { SensorReadingComponent } from './sensor-reading/sensor-reading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SensorsShowerComponent,
-    RoomBriefComponent
+    RoomBriefComponent,
+    SensorbannerComponent,
+    SensorReadingComponent
   ],
   imports: [
     BrowserModule,
