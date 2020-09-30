@@ -3,6 +3,4 @@ export class SensorReading {
     valueRead : number;
     sensorID : number;
     sensorName : string;
-    
-
 }

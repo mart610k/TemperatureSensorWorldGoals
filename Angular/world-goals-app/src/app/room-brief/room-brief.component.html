@@ -1,11 +1,8 @@
-<div >
+<div>
     <div *ngFor="let room of roomData;let i = index">
-
-        <div class="row" >
-            <div class="col-4">{{room.guid}}</div>
-            <div class="col-4">{{room.name}}</div>
-            <button class="btn"  data-toggle="collapse" [attr.data-target]= "'#' + room.guid">Show More</button>
+        <div class="border col">
+            <div>{{room.name}}</div>
+            <app-sensor-reading id= {{room.guid}} [room]="room"></app-sensor-reading>
         </div>
-        <app-sensor-reading class="collapse multi-collapse" id= {{room.guid}} [room]="room"></app-sensor-reading>
     </div>
 </div>
