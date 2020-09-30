@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component,Input, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 import { Sensor } from '../Sensor';
 import { SensorReading} from "../sensor-reading";
 import { SimpleRoom } from '../simple-room';
@@ -12,45 +12,28 @@ import { SimpleRoom } from '../simple-room';
 })
 export class SensorReadingComponent implements OnInit {
   
-  
   sensorsReading : SensorReading[] = [];
   sensors : Sensor[] = [];
 
   @Input() room : SimpleRoom;
-
   
-  constructor(private http : HttpClient) {
+  constructor(private apiService : ApiService) {
     
   }
 
   ngOnInit(): void {
-    this.GetSensors();
-    
+    this.apiService.GetSensors(this.room.guid).subscribe(result => {this.sensors = result; this.GetData()});
   }
 
   GetData() {
-    console.log("Something");
     for (let index = 0; index < this.sensors.length; index++) {
-      this.http.get<SensorReading[]>("https://localhost:44379/api/Room/Readings?Room="+this.room.guid + "&SensorID="+this.sensors[index].sensorID +"&Count=1").subscribe(
-      result =>{
+      this.apiService.GetSensorReadings(this.room.guid,this.sensors[index].sensorID,1).subscribe(result => {
         let sensorReading = result[0];
         sensorReading.sensorID = this.sensors[index].sensorID;
         sensorReading.sensorName = this.sensors[index].sensorName;
         this.sensorsReading.push(sensorReading);
-      }
-    );
-      
+      } 
+      );
     }
-    
    }
-
-  GetSensors(){
-    this.http.get<Sensor[]>("https://localhost:44379/api/Room/Sensors?Room="+this.room.guid).subscribe(
-      result =>{
-        console.log(result);
-        this.sensors = result;
-        this.GetData();
-      }
-    );
-  }
 }

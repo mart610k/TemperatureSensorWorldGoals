@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 import {SimpleRoom} from "../simple-room";
 
 @Component({
@@ -10,22 +10,10 @@ import {SimpleRoom} from "../simple-room";
 export class RoomBriefComponent implements OnInit {
   roomData : SimpleRoom[];
 
-
-  constructor(private http : HttpClient) {
-    this.GetRooms();
-   }
+  constructor(private apiservice : ApiService) {
+  }
 
   ngOnInit(): void {
+    this.apiservice.GetRooms().subscribe(data => this.roomData = data)
   }
-
-  GetRooms(){
-    this.http.get<SimpleRoom[]>("https://localhost:44379/api/Room/Rooms").subscribe(
-      result => 
-      { 
-        console.log(result);
-        this.roomData = result; 
-      }
-    );
-  }
-  
 }
