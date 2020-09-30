@@ -9,6 +9,7 @@ import { SensorsShowerComponent } from './sensors-shower/sensors-shower.componen
 import { RoomBriefComponent } from './room-brief/room-brief.component';
 import { SensorbannerComponent } from './sensorbanner/sensorbanner.component';
 import { SensorReadingComponent } from './sensor-reading/sensor-reading.component';
+import { SchoolDepartmentComponent } from './school-department/school-department.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SensorReadingComponent } from './sensor-reading/sensor-reading.componen
     SensorsShowerComponent,
     RoomBriefComponent,
     SensorbannerComponent,
-    SensorReadingComponent
+    SensorReadingComponent,
+    SchoolDepartmentComponent
   ],
   imports: [
     BrowserModule,
