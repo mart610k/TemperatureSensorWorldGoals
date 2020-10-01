@@ -10,6 +10,8 @@ import { RoomBriefComponent } from './room-brief/room-brief.component';
 import { SensorbannerComponent } from './sensorbanner/sensorbanner.component';
 import { SensorReadingComponent } from './sensor-reading/sensor-reading.component';
 import { SchoolDepartmentComponent } from './school-department/school-department.component';
+import { BuildingOverviewComponent } from './building-overview/building-overview.component';
+import { RoomComponent } from './room/room.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { SchoolDepartmentComponent } from './school-department/school-department
     RoomBriefComponent,
     SensorbannerComponent,
     SensorReadingComponent,
-    SchoolDepartmentComponent
+    SchoolDepartmentComponent,
+    BuildingOverviewComponent,
+    RoomComponent
   ],
   imports: [
     BrowserModule,

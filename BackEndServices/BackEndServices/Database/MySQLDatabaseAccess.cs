@@ -237,7 +237,30 @@ namespace BackEndServices.Database
 
         public ISensor[] GetSensorsForRoom(string roomuuid)
         {
-            throw new NotImplementedException();
+
+                 MySqlConnection conn = new MySqlConnection(GetConnectionString());
+
+            MySqlCommand command = conn.CreateCommand();
+
+            command.CommandText = "select SensorTypeID, SensorName from SensorReading join SensorType on SensorType.ID = SensorReading.SensorTypeID where SensorID = UUID_TO_BIN(@UUID) group by SensorTypeID;";
+
+
+            command.Parameters.AddWithValue("@UUID", roomuuid);
+            List<ISensor> sensors = new List<ISensor>();
+            conn.Open();
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                sensors.Add(new Sensor.Sensor(
+                    reader.GetInt32("SensorTypeID"),
+                    reader.GetString("SensorName")));
+            }
+            reader.Close();
+
+            conn.Close();
+
+            return sensors.ToArray();
         }
 
 
