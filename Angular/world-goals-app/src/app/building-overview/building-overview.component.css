@@ -5,11 +5,11 @@
     float: left;
 }
 .room-normal{
-    height: 150px;
-    width: 150px;
+    height: 180px;
+    width: 180px;
 }
 .room-halfLenght{
-    width: 75px;
+    width: 90px;
 }
 .room-normalHeight{
     height: 90px;
