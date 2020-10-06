@@ -23,7 +23,6 @@ export class ApiService {
   }
 
   GetSensorReadings(roomUUID : string, sensorID : number,count :number ){
-    console.log("I am called");
     return this.http.get<SensorReading[]>(this.baseAPILink + "/Room/Readings?Room=" + roomUUID + "&SensorID="+ sensorID +"&Count=" + count);
   }
 }
