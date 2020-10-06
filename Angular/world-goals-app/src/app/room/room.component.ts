@@ -12,13 +12,18 @@ import { SimpleRoom } from '../simple-room';
 export class RoomComponent implements OnInit {
 
 @Input() room : SimpleRoom;
+@Input() roomName : string;
 sensors : Sensor[] = []; 
 sensorReadings : SensorReading[] = [];
   constructor(private apiService : ApiService) { 
-    apiService.GetSensors(this.room.guid).subscribe(result => {
-      this.sensors = result;
-      this.GetData();
-    });
+    
+    if(this.room !== undefined)
+    {
+      apiService.GetSensors(this.room.guid).subscribe(result => {
+        this.sensors = result;
+        this.GetData();
+      });
+    }
   }
 
   ngOnInit(): void {

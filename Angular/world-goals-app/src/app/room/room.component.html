@@ -1,1 +1,29 @@
-<p>room works!</p>
+<ng-template #notinitialized>
+    <div>{{room}}</div>
+</ng-template>
+<div *ngIf="room === undefined; else notinitialized">
+    <div>{{roomName}}</div>
+    <div *ngFor="let sensor of sensorReadings">
+        <div>{{sensor.sensorName}}</div>
+        <div>{{sensor.valueRead}}</div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <div [style.visibility]="room === undefined ? true:false ">
+    <div>{{roomName}}</div>
+    <p>N/A</p>
+</div>
+<div [style.visibility]="room !== undefined ? true:false ">
+    <div>{{room.name}}</div>
+    <div *ngFor="let sensor in sensorReadings;">
+        <div>{{sensor.sensorName}}</div>
+        <div>{{sensor.valueRead}}</div>
+
+
+
+    </div>
+</div> -->
