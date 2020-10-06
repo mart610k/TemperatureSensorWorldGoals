@@ -1,5 +1,5 @@
 
-<div *ngIf="room !== undefined; else notinitialized">
+<div class="sensor" *ngIf="room !== undefined;  else notinitialized">
     <div>{{roomName}}</div>
     <div *ngFor="let sensor of sensorReadings">
         <div>{{sensor.sensorName}}</div>
@@ -8,9 +8,12 @@
 </div>
 
 <ng-template #notinitialized>
-    <div>{{roomName}}</div>
-    <div>This room has no sensors.</div>
-</ng-template>
+    <div class="no-sensor">
+
+        <div>{{roomName}}</div>
+        <div>This room has no sensors.</div>
+    </div>
+    </ng-template>
 
 
 

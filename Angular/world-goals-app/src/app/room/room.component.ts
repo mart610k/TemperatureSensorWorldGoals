@@ -3,6 +3,8 @@ import { ApiService } from '../api.service';
 import { Sensor } from '../Sensor';
 import { SensorReading } from '../sensor-reading';
 import { SimpleRoom } from '../simple-room';
+import { interval, TimeInterval } from 'rxjs';
+
 
 @Component({
   selector: 'app-room',
@@ -13,17 +15,20 @@ export class RoomComponent implements OnInit {
 
   room: SimpleRoom;
   @Input() roomName: string;
-
+  refreshTime = interval(10 * 1000);
   sensors: Sensor[] = [];
   sensorReadings: SensorReading[] = [];
   constructor(private apiService: ApiService) {
+
     this.apiService.GetRooms().subscribe(result => {
       this.room = this.FindRoomByName(this.roomName, result);
       if (this.room !== undefined) {
         apiService.GetSensors(this.room.guid).subscribe(result => {
           this.sensors = result;
           this.GetData();
+          this.refreshTime.subscribe(() => this.GetData())
         });
+        
       }
     });
   }
@@ -38,11 +43,15 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
+  
 
 
   GetData() {
+    this.sensorReadings = [];
     for (let index = 0; index < this.sensors.length; index++) {
+      
       this.apiService.GetSensorReadings(this.room.guid, this.sensors[index].sensorID, 1).subscribe(result => {
         let sensorReading = result[0];
         sensorReading.sensorID = this.sensors[index].sensorID;
