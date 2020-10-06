@@ -10,29 +10,11 @@ import { SimpleRoom } from '../simple-room';
 })
 export class BuildingOverviewComponent implements OnInit {
 
-  constructor(private apiService : ApiService) {
-
-    this.apiService.GetRooms().subscribe(result => {
-      this.rooms = result;
-      console.log(result);
-    });
+  constructor() {
    }
 
-  rooms: SimpleRoom[] = []
-
-  FindRoomByName(roomName : string){
-    let toreturn : SimpleRoom = undefined ;
-    toreturn = this.rooms.find(x => x.name === roomName);
-    
-
-    return toreturn; 
-    
-  }
   
-
   ngOnInit(): void {
-
-
   }
 
 
