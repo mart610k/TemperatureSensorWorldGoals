@@ -36,10 +36,7 @@ export class RoomComponent implements OnInit {
   FindRoomByName(roomName: string, rooms: SimpleRoom[]): SimpleRoom {
     let toreturn: SimpleRoom = undefined;
     toreturn = rooms.find(x => x.name === roomName);
-
-
     return toreturn;
-
   }
 
   ngOnInit(): void {
@@ -57,7 +54,9 @@ export class RoomComponent implements OnInit {
         sensorReading.sensorID = this.sensors[index].sensorID;
         sensorReading.sensorName = this.sensors[index].sensorName;
         this.sensorReadings.push(sensorReading);
-
+        this.sensorReadings.sort(function(a, b) {
+          return a.sensorID - b.sensorID;
+      });
       }
       );
 
