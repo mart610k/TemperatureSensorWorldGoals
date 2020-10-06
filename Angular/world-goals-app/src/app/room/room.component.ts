@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Sensor } from '../Sensor';
+import { Sensor } from '../sensor';
 import { SensorReading } from '../sensor-reading';
 import { SimpleRoom } from '../simple-room';
 import { interval} from 'rxjs';

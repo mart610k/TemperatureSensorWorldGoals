@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SimpleRoom } from './simple-room';
-import { Sensor } from './Sensor';
-import { Observable } from 'rxjs';
+import { Sensor } from './sensor';
 import { SensorReading } from './sensor-reading';
 
 @Injectable({

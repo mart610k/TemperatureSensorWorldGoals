@@ -1,7 +1,4 @@
-import { compileNgModule } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { SimpleRoom } from '../simple-room';
 
 @Component({
   selector: 'app-building-overview',

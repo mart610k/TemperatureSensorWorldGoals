@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import {SimpleRoom} from "../simple-room";
+import { SimpleRoom } from "../simple-room";
 
 @Component({
   selector: 'app-room-brief',
