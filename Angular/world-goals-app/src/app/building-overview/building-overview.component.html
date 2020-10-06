@@ -1,38 +1,9 @@
 
 <div class="building-row">
-    <div class="room room-normal">B.26</div>
-    <div class="room room-normal">B.24</div>
-    <div class="room room-normal">B.16</div>
-    <div class="room room-normal">B.14</div>
-    <div class="room room-normal room-halfLenght"><app-room [room]=this.FindRoomByName()></app-room>{{ FindRoomByName("B.12") ? FindRoomByName('B.12')  : 'N/A'}} <br> B.12</div>
-    <div class="room room-normal room-halfLenght">{{ FindRoomByName("B.10") ? FindRoomByName("B.10") : "N/A" }} <br> B.10</div>
+    <div class="room room-normal" *ngFor="let room of ['B.26','B.24','B.16','B.14']"><app-room [roomName]=room [room]="FindRoomByName(room)"></app-room></div>
+
+    <div class="room room-normal room-halfLenght"><app-room [roomName]="'B.12'" [room]="FindRoomByName('B.12')"></app-room></div>
+    <div class="room room-normal room-halfLenght"><app-room [roomName]="'B.10'" [room]="FindRoomByName('B.10')"></app-room></div> 
     <div class="room room-normal room-halfLenght">B.08</div>
     <div class="room room-normal room-halfLenght">B.02</div>
 </div>
-
-
-
-
-<!-- <div class="container">
-    <div class="row flex-nowrap">
-        <div class="col-1 outside room-normalHeight"></div>
-        <div class="col-2 room room-normalHeight">B.26</div>
-        <div class="col-2 room room-normalHeight">B.24</div>
-        <div class="col-2 room room-normalHeight">B.16</div>
-        <div class="col-2 room room-normalHeight">B.14</div>
-        <div class="col-1 room room-normalHeight">B.12</div>
-        <div class="col-1 room room-normalHeight">B.10</div>
-        <div class="col-1 room room-normalHeight">B.08</div>
-        <div class="col-1 room room-normalHeight">B.02</div>
-    </div>
-    <div class="row flex-nowrap">
-        <div class="col-1 outside"></div>
-        <div class="col-1 room room-halfHeight">Depot</div>
-        <div class="col-11 room room-halfHeight">B.24</div>
-    </div>
-    <div class="row flex-nowrap">
-        <div class="col-2 outside"></div>
-        <div class="col-1 room room-doubleHeight">B.30</div>
-        <div class="col-11 room room-halfHeight">B.24</div>
-    </div>
-</div> -->
