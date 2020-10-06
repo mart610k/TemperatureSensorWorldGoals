@@ -11,19 +11,30 @@ import { SimpleRoom } from '../simple-room';
 })
 export class RoomComponent implements OnInit {
 
-@Input() room : SimpleRoom;
-@Input() roomName : string;
-sensors : Sensor[] = []; 
-sensorReadings : SensorReading[] = [];
-  constructor(private apiService : ApiService) { 
-    
-    if(this.room !== undefined)
-    {
-      apiService.GetSensors(this.room.guid).subscribe(result => {
-        this.sensors = result;
-        this.GetData();
-      });
-    }
+  room: SimpleRoom;
+  @Input() roomName: string;
+
+  sensors: Sensor[] = [];
+  sensorReadings: SensorReading[] = [];
+  constructor(private apiService: ApiService) {
+    this.apiService.GetRooms().subscribe(result => {
+      this.room = this.FindRoomByName(this.roomName, result);
+      if (this.room !== undefined) {
+        apiService.GetSensors(this.room.guid).subscribe(result => {
+          this.sensors = result;
+          this.GetData();
+        });
+      }
+    });
+  }
+
+  FindRoomByName(roomName: string, rooms: SimpleRoom[]): SimpleRoom {
+    let toreturn: SimpleRoom = undefined;
+    toreturn = rooms.find(x => x.name === roomName);
+
+
+    return toreturn;
+
   }
 
   ngOnInit(): void {
@@ -32,14 +43,15 @@ sensorReadings : SensorReading[] = [];
 
   GetData() {
     for (let index = 0; index < this.sensors.length; index++) {
-      this.apiService.GetSensorReadings(this.room.guid,this.sensors[index].sensorID,1).subscribe(result => {
+      this.apiService.GetSensorReadings(this.room.guid, this.sensors[index].sensorID, 1).subscribe(result => {
         let sensorReading = result[0];
         sensorReading.sensorID = this.sensors[index].sensorID;
         sensorReading.sensorName = this.sensors[index].sensorName;
         this.sensorReadings.push(sensorReading);
-      } 
+
+      }
       );
 
-}
+    }
   }
 }
