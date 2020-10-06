@@ -3,7 +3,7 @@ import { ApiService } from '../api.service';
 import { Sensor } from '../Sensor';
 import { SensorReading } from '../sensor-reading';
 import { SimpleRoom } from '../simple-room';
-import { interval, TimeInterval } from 'rxjs';
+import { interval} from 'rxjs';
 
 
 @Component({
