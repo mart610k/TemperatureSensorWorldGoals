@@ -56,7 +56,7 @@ namespace ArduinoCommunicator
         }
 
 
-        public bool RegisterThread(ICommonDataMethods commonDataMethods, string roomUUID, string host, int waitingTimeInSeconds)
+        public bool RegisterThread(CommunicatorActions commonDataMethods, string roomUUID, string host, int waitingTimeInSeconds)
         {
             Thread thread = new Thread(() => SensorGetter(commonDataMethods, roomUUID, host, waitingTimeInSeconds));
             thread.Start();
@@ -64,7 +64,7 @@ namespace ArduinoCommunicator
             return true;
         }
 
-        private void SensorGetter(ICommonDataMethods commonDataMethods, string roomUUID,string host, int waitingTimeInSeconds)
+        private void SensorGetter(CommunicatorActions commonDataMethods, string roomUUID,string host, int waitingTimeInSeconds)
         {
             HttpClient client = new HttpClient();
 
@@ -94,16 +94,9 @@ namespace ArduinoCommunicator
                                     ISensor sensor = commonDataMethods.GetSensorByName(keys[i]);
                                     ISensorReading sensorReading = new SensorReading(sensor.SensorID, sensor.SensorName, DateTime.UtcNow, valueRead);
 
-                                    Program.communicator.CreateSensorReading(roomUUID, sensorReading);
+                                    commonDataMethods.CreateSensorReading(roomUUID, sensorReading);
                                 }
                             }
-
-                           
-                            
-
-
-                            Console.WriteLine(jObject.Value<float>("temperature"));
-                            Console.WriteLine(jObject.Value<float>("humidity"));
                             break;
                         default:
                             break;

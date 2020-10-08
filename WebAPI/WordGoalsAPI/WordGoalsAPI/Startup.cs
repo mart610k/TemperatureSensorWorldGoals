@@ -15,6 +15,9 @@ namespace WordGoalsAPI
 {
     public class Startup
     {
+        //Allow Angular to Connect
+        readonly string AllowedOrigins = "_AllowedOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +28,19 @@ namespace WordGoalsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options =>
+            {
+
+                options.AddPolicy(name: AllowedOrigins,
+                    builder =>
+                    {
+                        //Allow Angular to Connect
+                        builder.WithOrigins("http://localhost:4200");
+                    });
+            });
+
+
             services.AddControllers();
         }
 
@@ -39,6 +55,9 @@ namespace WordGoalsAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            //Allow Angular to Connect
+            app.UseCors(AllowedOrigins);
 
             app.UseAuthorization();
 

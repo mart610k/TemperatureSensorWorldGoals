@@ -45,7 +45,7 @@ namespace ArduinoCommunicator
 
             for (int i = 0; i < rooms.Count; i++)
             {
-                updater.RegisterThread(communicator, rooms[i].GUID.ToString(),rooms[i].IPaddress, 5);
+                updater.RegisterThread(communicator, rooms[i].GUID.ToString(),rooms[i].IPaddress, 30);
             }
             Console.ReadKey();
 

@@ -25,5 +25,7 @@ namespace BackEndServices.Database
         bool SetSensorLimitForRoom(string roomuuid, ISensorLimit sensorLimit);
 
         ISensor GetSensorByName(string sensorName);
+
+        ISensorLimit GetSensorLimit(int sensorID);
     }
 }

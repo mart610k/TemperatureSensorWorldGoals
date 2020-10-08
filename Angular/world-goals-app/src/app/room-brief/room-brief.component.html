@@ -1,0 +1,8 @@
+<div>
+    <div *ngFor="let room of roomData;let i = index">
+        <div class="border col">
+            <div>{{room.name}}</div>
+            <app-sensor-reading id= {{room.guid}} [room]="room"></app-sensor-reading>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+
+<div class="sensor" *ngIf="room !== undefined;  else notinitialized">
+    <div>{{roomName}}</div>
+    <div *ngFor="let sensor of sensorReadings">
+        <app-sensorbanner [sensorID]="sensor.sensorID" [roomUUID]= "room.guid"></app-sensorbanner>
+        <!-- <div>{{sensor.sensorName}}</div>
+        <div>{{sensor.valueRead}}</div> -->
+        <!-- <div>{{GetSensorLimitInfo(sensor.sensorID)}}</div> -->
+    </div>
+</div>
+
+<ng-template #notinitialized>
+    <div class="no-sensor">
+
+        <div>{{roomName}}</div>
+        <div>This room has no sensors.</div>
+    </div>
+    </ng-template>
+
+
+
+<!-- <div [style.visibility]="room === undefined ? true:false ">
+    <div>{{roomName}}</div>
+    <p>N/A</p>
+</div>
+<div [style.visibility]="room !== undefined ? true:false ">
+    <div>{{room.name}}</div>
+    <div *ngFor="let sensor in sensorReadings;">
+        <div>{{sensor.sensorName}}</div>
+        <div>{{sensor.valueRead}}</div>
+
+
+
+    </div>
+</div> -->

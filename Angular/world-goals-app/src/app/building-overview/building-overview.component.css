@@ -1,0 +1,40 @@
+
+.room{
+    border: black 1px solid;
+    text-align: center;
+    float: left;
+}
+.room-normal{
+    height: 180px;
+    width: 180px;
+}
+.room-halfLenght{
+    width: 90px;
+}
+.room-normalHeight{
+    height: 90px;
+    width: 90px;
+}
+.room-halfHeight
+{
+    height: 45px;
+}
+.room-doubleHeight
+{
+    height: 180px;
+}
+.row {
+    align-items: center;
+}
+.coltest{
+ 
+    border: solid 1px black;
+}
+.building-row{
+    display: table;
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+    width: auto;
+}

@@ -1,0 +1,48 @@
+/* .department:hover {
+    background-color: black;
+} */
+.department{
+    background-color: #505050;
+    color: white;
+}
+
+.w-5{
+    width: 5%;
+}
+.w-20{
+    width: 20%;
+}
+.building-B{
+    height: 250px;
+}
+.building-C{
+    height: 150px;
+}
+.building-F{
+    height: 75px;
+}
+.building-G{
+    height: 150px;
+}
+.building-E{
+    height:220px;
+}
+.building-A{
+    height: 100px;
+}
+.building-D{
+    height: 220px;
+}
+.building-A1{
+    height: 100px;
+}
+.spacer-45{
+    height: 45px;
+}
+.mainhallway{
+    height: 650px;
+    
+}
+.spacer-75{
+    height: 75px;
+}

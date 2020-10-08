@@ -11,6 +11,11 @@ namespace BackEndServices.Database
         {
         }
 
+        public ISensorLimit GetSensorLimit(int sensorID)
+        {
+            return DatabaseAccess.GetSensorLimit(sensorID);
+        }
+
         public ISensorLimit GetSensorLimitForRoom(string roomUUID, int sensorID)
         {
             return DatabaseAccess.GetSensorForLimitForRoom(roomUUID, sensorID);   
