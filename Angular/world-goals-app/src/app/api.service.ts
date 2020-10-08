@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SimpleRoom } from './simple-room';
 import { Sensor } from './sensor';
 import { SensorReading } from './sensor-reading';
+import { SensorLimit } from "./sensor-limit";
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class ApiService {
 
   GetSensorReadings(roomUUID : string, sensorID : number,count :number ){
     return this.http.get<SensorReading[]>(this.baseAPILink + "/Room/Readings?Room=" + roomUUID + "&SensorID="+ sensorID +"&Count=" + count);
+  }
+
+  GetSensorLimit(sensorID : number){
+    return this.http.get<SensorLimit>(this.baseAPILink + "/Sensor/Limit?SensorID=" + sensorID);
   }
 }

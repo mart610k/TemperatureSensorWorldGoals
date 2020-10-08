@@ -2,8 +2,10 @@
 <div class="sensor" *ngIf="room !== undefined;  else notinitialized">
     <div>{{roomName}}</div>
     <div *ngFor="let sensor of sensorReadings">
-        <div>{{sensor.sensorName}}</div>
-        <div>{{sensor.valueRead}}</div>
+        <app-sensorbanner [sensorID]="sensor.sensorID" [roomUUID]= "room.guid"></app-sensorbanner>
+        <!-- <div>{{sensor.sensorName}}</div>
+        <div>{{sensor.valueRead}}</div> -->
+        <!-- <div>{{GetSensorLimitInfo(sensor.sensorID)}}</div> -->
     </div>
 </div>
 

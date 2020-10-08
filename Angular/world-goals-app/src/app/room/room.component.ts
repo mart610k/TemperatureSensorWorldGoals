@@ -4,6 +4,7 @@ import { Sensor } from '../sensor';
 import { SensorReading } from '../sensor-reading';
 import { SimpleRoom } from '../simple-room';
 import { interval} from 'rxjs';
+import { SensorLimit } from '../sensor-limit';
 
 
 @Component({
@@ -43,7 +44,11 @@ export class RoomComponent implements OnInit {
     
   }
   
-
+  GetSensorLimitInfo(sensorID : number) {
+    this.apiService.GetSensorLimit(sensorID).subscribe(result => {
+      return result;
+    });
+  }
 
   GetData() {
     this.sensorReadings = [];
