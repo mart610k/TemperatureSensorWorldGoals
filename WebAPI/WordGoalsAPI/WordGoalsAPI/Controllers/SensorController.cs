@@ -40,6 +40,12 @@ namespace WordGoalsAPI.Controllers
             return dataActions.GetSensorsForRoom(roomUUID);
         }
 
+        [HttpGet("Limit")]
+        public ISensorLimit GetSensorLimit([FromQuery(Name= "sensorid")] int sensorID)
+        {
+            return dataActions.GetSensorLimit(sensorID);
+        }
+
         
     }
 }

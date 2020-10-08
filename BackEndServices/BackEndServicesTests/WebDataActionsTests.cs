@@ -87,6 +87,31 @@ namespace BackEndServicesTests
             }
         }
         [Test]
+        public void GetSensorLimitIsCalledOnce()
+        {
+            int sensorID = 0;
+
+
+            using (AutoMock mock = AutoMock.GetStrict())
+            {
+                mock.Mock<IDatabaseAccess>()
+                    .Setup(x => x.GetSensorLimit(sensorID))
+                    .Returns(SampleSensorLimit());
+
+                WebDataActions cls = mock.Create<WebDataActions>();
+
+                ISensorLimit expected = SampleSensorLimit();
+                ISensorLimit actual = cls.GetSensorLimit(sensorID);
+
+                mock.Mock<IDatabaseAccess>().Verify(x => x.GetSensorLimit(sensorID), Times.Exactly(1));
+
+                Assert.AreEqual(expected.SensorID, actual.SensorID);
+            }
+
+            
+        }
+
+        [Test]
         public void Test()
         {
             CommunicatorActions communicator = new CommunicatorActions(new MySQLDatabaseAccess("localhost", "WorldGoals", "test", "rSFC68k0QY"));
@@ -94,7 +119,11 @@ namespace BackEndServicesTests
 
             communicator.GetRooms();
         }
-
+        
+        private ISensorLimit SampleSensorLimit()
+        {
+            return new SensorLimit(0, "temperature", 20f, 40f);
+        }
 
         private List<ISensorReading> GetSampleReadings()
         {

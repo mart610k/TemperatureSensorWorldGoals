@@ -23,10 +23,10 @@ namespace BackEndServices.Database
             UserPassword = userpassword;
             DatabaseName = databaseName;
         }
-        
+
         private string GetConnectionString()
         {
-            return string.Format("Server={0}; Database={1}; Uid={2}; Pwd={3};",Host,DatabaseName,UserName,UserPassword);
+            return string.Format("Server={0}; Database={1}; Uid={2}; Pwd={3};", Host, DatabaseName, UserName, UserPassword);
         }
 
         public bool CreateRoom(IRoom room)
@@ -45,15 +45,15 @@ namespace BackEndServices.Database
             conn.Open();
 
             int result = command.ExecuteNonQuery();
-            
+
             conn.Close();
 
-            if(result == 1)
+            if (result == 1)
             {
                 return true;
             }
             return false;
-            
+
         }
 
 
@@ -89,7 +89,7 @@ namespace BackEndServices.Database
 
             MySqlDataReader reader = command.ExecuteReader();
             IRoom room = null;
-            while(reader.Read())
+            while (reader.Read())
             {
                 room = new Room.Room(reader.GetString("Name"), reader.GetString("BIN_TO_UUID(ID)"), reader.GetString("HEX(MacAddress)"), reader.GetString("IpAddress"), reader.GetString("Description"));
             }
@@ -108,10 +108,10 @@ namespace BackEndServices.Database
 
             MySqlDataReader reader = command.ExecuteReader();
             List<ISimpleRoom> roomList = new List<ISimpleRoom>();
-           
+
             while (reader.Read())
             {
-                
+
                 roomList.Add(new SimpleRoom(reader.GetString("Name"), reader.GetString("BIN_TO_UUID(ID)")));
             }
 
@@ -131,7 +131,7 @@ namespace BackEndServices.Database
             List<ISensor> sensors = new List<ISensor>();
             conn.Open();
             MySqlDataReader reader = command.ExecuteReader();
-            while(reader.Read())
+            while (reader.Read())
             {
                 sensors.Add(new Sensor.Sensor(reader.GetInt32("ID"), reader.GetString("SensorName")));
 
@@ -157,7 +157,7 @@ namespace BackEndServices.Database
             int result = command.ExecuteNonQuery();
             conn.Close();
 
-            if(result == 1)
+            if (result == 1)
             {
                 return true;
             }
@@ -181,15 +181,18 @@ namespace BackEndServices.Database
             command.Parameters.AddWithValue("@SensorID", sensorTypeID);
             command.Parameters.AddWithValue("@Count", count);
             List<ISensorReading> sensorReadings = new List<ISensorReading>();
+            if(roomuuid != null)
+            {
+
             conn.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
-            while(reader.Read())
+            while (reader.Read())
             {
                 sensorReadings.Add(new SensorReading(
-                    reader.GetInt32("SensorTypeID"), 
-                    reader.GetString("SensorName"), 
-                    reader.GetDateTime("TimeRead"), 
+                    reader.GetInt32("SensorTypeID"),
+                    reader.GetString("SensorName"),
+                    reader.GetDateTime("TimeRead"),
                     reader.GetFloat("ValueRead")));
             }
             reader.Close();
@@ -197,6 +200,8 @@ namespace BackEndServices.Database
             conn.Close();
 
             return sensorReadings.ToArray();
+            }
+            return null;
         }
 
 
@@ -218,7 +223,7 @@ namespace BackEndServices.Database
             int result = command.ExecuteNonQuery();
             conn.Close();
 
-            if(result == 1)
+            if (result == 1)
             {
                 return true;
             }
@@ -232,13 +237,13 @@ namespace BackEndServices.Database
             throw new NotImplementedException();
         }
 
-        
+
 
 
         public ISensor[] GetSensorsForRoom(string roomuuid)
         {
 
-                 MySqlConnection conn = new MySqlConnection(GetConnectionString());
+            MySqlConnection conn = new MySqlConnection(GetConnectionString());
 
             MySqlCommand command = conn.CreateCommand();
 
@@ -287,9 +292,40 @@ namespace BackEndServices.Database
             {
                 sensor = new Sensor.Sensor(reader.GetInt32("ID"), reader.GetString("SensorName"));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
+            }
+            reader.Close();
+            conn.Close();
+
+            return sensor;
+        }
+
+        public ISensorLimit GetSensorLimit(int sensorID)
+        {
+            MySqlConnection conn = new MySqlConnection(GetConnectionString());
+            MySqlCommand command = conn.CreateCommand();
+
+            command.CommandText = "SELECT SensorTypeID,UpperLimit,LowerLimit,SensorName FROM standardsensorlimit join SensorType on SensorTypeID = ID WHERE SensorTypeID = @sensorID;";
+            command.Parameters.AddWithValue("@sensorID", sensorID);
+
+
+            ISensorLimit sensor = null;
+            conn.Open();
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            if (reader.HasRows)
+            {
+
+                try
+                {
+                    sensor = new Sensor.SensorLimit(reader.GetInt32("SensorTypeID"), reader.GetString("SensorName"), reader.GetFloat("LowerLimit"), reader.GetFloat("UpperLimit"));
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
             reader.Close();
             conn.Close();
